@@ -1,10 +1,10 @@
 FROM debian:buster
 
-COPY config/conf.sql my.sql
+COPY config/conf.sql conf.sql
 RUN	apt-get	update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mariadb-server \
 	&& service mysql start \
-	&& mysql < config/conf.sql
+	&& mysql < conf.sql
 
 EXPOSE 3306
 
