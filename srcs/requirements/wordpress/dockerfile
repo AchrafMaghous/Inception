@@ -14,6 +14,10 @@ COPY ./config/www.conf /etc/php/7.3/fpm/pool.d
 
 COPY ./config/setup.sh /usr/local/bin/
 
+ENTRYPOINT ["/usr/local/bin/setup.sh"]
+
+WORKDIR /var/www/html/
+
 EXPOSE 9000
 
-CMD ["bash", "/usr/local/bin/setup.sh"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
