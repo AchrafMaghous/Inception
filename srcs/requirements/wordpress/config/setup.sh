@@ -1,7 +1,7 @@
 #!/bin/sh
 wget http://wordpress.org/latest.tar.gz
 tar xfz latest.tar.gz
-mv wordpress/* .
+mv -f wordpress/* .
 rm -rf latest.tar.gz
 rm -rf wordpress
 
