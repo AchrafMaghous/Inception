@@ -5,13 +5,13 @@ services:
     ports: 
       - "443:443"
     volumes:
-      - wp_files:/var/www/html
+      - ./wp_files:/var/www/html
     restart: always
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
     volumes:
-      - wp_db:/var/lib/mysql
+      - ./wp_db:/var/lib/mysql
     restart: always
   wordpress:
     container_name: wordpress
