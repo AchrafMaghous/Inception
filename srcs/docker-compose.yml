@@ -2,7 +2,8 @@ services:
   nginx:
     container_name: nginx
     build: ./requierements/nginx
-    ports: "443:443"
+    ports: 
+      - 443:443
     volumes:
     - wp_files:/var/www/html
     restart: always
