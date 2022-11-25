@@ -1,7 +1,7 @@
 services:
   nginx:
     container_name: nginx
-    build: ./requierements/nginx
+    build: ./requirements/nginx
     ports: 
       - "443:443"
     volumes:
@@ -9,13 +9,13 @@ services:
     restart: always
   mariadb:
     container_name: mariadb
-    build: ./requierements/mariadb
+    build: ./requirements/mariadb
     volumes:
       - wp_db:/var/lib/mysql
     restart: always
   wordpress:
     container_name: wordpress
-    build: ./requierements/wordpress
+    build: ./requirements/wordpress
     depends_on:
       - mariadb
       - nginx
