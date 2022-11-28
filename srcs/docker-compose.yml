@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   nginx:
+    image: nginx
     container_name: nginx
     build: ./requirements/nginx
     ports: 
@@ -12,6 +13,7 @@ services:
     networks:
       - network
   mariadb:
+    image: mariadb
     container_name: mariadb
     build: ./requirements/mariadb
     volumes:
@@ -20,6 +22,7 @@ services:
     networks:
       - network
   wordpress:
+    image: wordpress
     container_name: wordpress
     build: ./requirements/wordpress
     depends_on:
