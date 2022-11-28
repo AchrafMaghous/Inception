@@ -1,17 +1,15 @@
 FROM debian:buster
 
 RUN apt-get update && apt-get upgrade -y \
-	&& apt-get -y install mariadb-server \
-	mariadb-client && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /var/run/mysqld \
-&& chown -R mysql:mysql /var/run/mysqld \
-&& chmod 777 /var/run/mysqld
-
-EXPOSE 3306
+	&& apt-get -y install mariadb-server
 
 COPY ./config/conf.sql /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/conf.sql
+COPY ./config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-CMD [ "mysqld" ]
+RUN chmod +x /usr/local/bin/conf.sql \
+	&& chown -R mysql:mysql /var/lib/mysql;\
+    chmod 777 /var/run/mysqld;\
+    mysql -u root < /usr/local/bin/conf.sql;
+
+ENTRYPOINT [ "mysqld_safe" ]

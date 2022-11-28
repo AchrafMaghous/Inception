@@ -7,12 +7,16 @@ services:
     volumes:
       - ./wp_files:/var/www/html
     restart: always
+    networks:
+      - network
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
     volumes:
       - ./wp_db:/var/lib/mysql
     restart: always
+    networks:
+      - network
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
@@ -20,3 +24,5 @@ services:
       - mariadb
       - nginx
     restart: always
+    networks:
+      - network
