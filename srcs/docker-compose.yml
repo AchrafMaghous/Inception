@@ -31,3 +31,8 @@ services:
     restart: always
     networks:
       - network
+
+networks:
+  network:
+    driver: bridge
+    
