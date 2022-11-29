@@ -1,45 +1,7 @@
-version: '3.7'
-
-services:
-  mariadb:
-    build: ./requirements/mariadb/
-    container_name: mariadb
-    image: mariadb
-    ports:
-      - 3306:3306
-    volumes:
-      - DB:/var/lib/mysql
-    networks:
-      - inceptionNetwork
-    restart: on-failure
-
-  nginx:
-    build: ./requirements/nginx/
-    container_name: nginx
-    image: nginx
-    ports:
-      - 443:443
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - inceptionNetwork
-    restart: on-failure
-    depends_on:
-      - wordpress
-
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress/
-    image: wordpress
-    ports:
-      - 9000:9000
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - inceptionNetwork
-    restart: on-failure
-    env_file:
-      - .env
-    depends_on:
-      - mariadb
-      - redis
+apt update -y;\
+    apt install mariadb-server -y; service mysql start;\
+    chown -R mysql:mysql /var/lib/mysql;\
+    sed -i "s/#port/port/" /etc/mysql/mariadb.conf.d/50-server.cnf;\
+    chmod 777 /var/run/mysqld;\
+    sed -i "s/127.0.0.1/0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf;\
+    mysql -u root < /tmp/db.sql; 
