@@ -8,7 +8,7 @@ COPY ./config/conf.sql /tmp/conf.sql
 
 COPY ./config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN chmod +x /usr/local/bin/conf.sql
+RUN chmod +x /tmp/conf.sql
 
 RUN chown -R mysql:mysql /var/lib/mysql
 RUN mkdir -p /var/run/mysqld
