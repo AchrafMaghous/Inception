@@ -12,6 +12,6 @@ RUN chmod +x /usr/local/bin/conf.sql
 RUN chown -R mysql:mysql /var/lib/mysql
 RUN mkdir -p /var/run/mysqld
 RUN chmod 777 /var/run/mysqld
-RUN mysql -u root < /usr/local/bin/conf.sql
+RUN mysql < /usr/local/bin/conf.sql
 
 ENTRYPOINT [ "mysqld_safe" ]
