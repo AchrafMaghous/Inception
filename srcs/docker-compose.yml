@@ -41,5 +41,18 @@ services:
 
 networks:
   network:
-    driver: bridge
+
+volumes:
+  database:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/achraf/data/mysql
+  wp:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/achraf/data/wordpress
+
+
     
