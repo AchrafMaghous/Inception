@@ -11,4 +11,4 @@ RUN apt-get update -y;\
 
 COPY ./config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-ENTRYPOINT [ "mysqld_safe" ]
+ENTRYPOINT [ "/bin/bash" ]
