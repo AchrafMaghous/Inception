@@ -3,7 +3,7 @@ version: '3.7'
 services:
   nginx:
     image: nginx
-    container_name: nginx
+    container_name: inc_nginx
     build: ./requirements/nginx
     ports: 
       - "443:443"
@@ -16,7 +16,7 @@ services:
       - network
   mariadb:
     image: mariadb
-    container_name: mariadb
+    container_name: inc_mariadb
     build: ./requirements/mariadb
     ports:
       - "3306:3306"
@@ -27,7 +27,7 @@ services:
       - network
   wordpress:
     image: wordpress
-    container_name: wordpress
+    container_name: inc_wordpress
     build: ./requirements/wordpress
     ports:
       - "9000:9000"
