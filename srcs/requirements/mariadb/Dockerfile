@@ -10,5 +10,3 @@ RUN apt-get update -y;\
     mysql -u root < /tmp/conf.sql; 
 
 COPY ./config/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-
-ENTRYPOINT [ "/bin/bash" ]
