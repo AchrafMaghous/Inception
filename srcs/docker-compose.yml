@@ -43,12 +43,12 @@ networks:
   network:
 
 volumes:
-  database:
+  wp_db:
     driver_opts:
       type: 'none'
       o: bind
       device: /home/achraf/data/mysql
-  wp:
+  wp_files:
     driver_opts:
       type: 'none'
       o: bind
