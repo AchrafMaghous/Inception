@@ -1,22 +1,127 @@
-#!/bin/sh
-apt update -y
-apt install curl php-fpm php-mysql -y
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-mv wp-cli.phar /usr/local/bin/wp 
-sed -i -e 's/listen =.*/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
-wp core download --path="/var/www/html"  --allow-root
-chown -R www-data:www-data /var/www/html
-wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$MYSQL_host --path=/var/www/html --allow-root --skip-check --extra-php <<PHP
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
-define('WP_REDIS_DISABLED', false);
-PHP
-wp core install --url=$url --title=$title --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email --allow-root --path=/var/www/html
-wp user create acmaghou42 acmaghou42@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/
-service php7.3-fpm start
-wp plugin install redis-cache --path=/var/www/html --allow-root
-wp plugin activate redis-cache --path=/var/www/html --allow-root
-wp redis enable --path=/var/www/html --allow-root
-service php7.3-fpm stop
-php-fpm7.3 -F
+version: '3.7'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - DB:/var/lib/mysql
+    networks:
+      - inceptionNetwork
+    restart: on-failure
+
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    image: nginx
+    ports:
+      - 443:443
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - inceptionNetwork
+    restart: on-failure
+    depends_on:
+      - wordpress
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    image: wordpress
+    ports:
+      - 9000:9000
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - inceptionNetwork
+    restart: on-failure
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+      - redis
+
+
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: redis
+    image: redis
+    networks:
+      - inceptionNetwork
+    ports:
+      - 6379:6379
+    restart: on-failure
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    image: adminer
+    networks:
+      - inceptionNetwork
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    restart: on-failure
+
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp/
+    image: ftp
+    volumes:
+      - wp:/home/evblood/ftp/
+    networks:
+      - inceptionNetwork
+    ports:
+      - "40000-40005:40000-40005"
+      - "20:20"
+      - "21:21"
+    depends_on:
+      - wordpress
+    env_file:
+      - .env
+    restart: on-failure
+
+  cadvisor:
+    build: ./requirements/bonus/cadvisor
+    container_name: cadvisor
+    image: cadvisor
+    networks:
+      - inceptionNetwork
+    ports:
+      - 2000:2000
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    restart: on-failure
+
+  staticwebsite:
+    build: ./requirements/bonus/staticwebsite
+    container_name: staticwebsite
+    image: staticwebsite
+    networks:
+      - inceptionNetwork
+    ports:
+      - 81:81
+    restart: on-failure
+
+volumes:
+  DB:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/sakllam/data/mysql
+  wp:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/sakllam/data/wordpress
+
+networks:
+  inceptionNetwork:
+      driver: bridge
