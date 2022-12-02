@@ -3,8 +3,8 @@ FROM debian:buster
 RUN	apt-get update && apt upgrade -y \
 	&& apt-get install curl php-fpm php-mysql -y
 
-COPY ./config/setup.sh /usr/local/bin/setup.sh
+COPY ./config/setup.sh /tmp/setup.sh
 
-RUN chmod +x /usr/local/bin/setup.sh
+RUN chmod +x /tmp/setup.sh
 
-ENTRYPOINT ["/bin/sh" ,"/usr/local/bin/setup.sh"]
+ENTRYPOINT ["/bin/sh" ,"/tmp/setup.sh"]
