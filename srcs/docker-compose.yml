@@ -23,6 +23,8 @@ services:
     volumes:
       - ./wp_db:/var/lib/mysql
     restart: on-failure
+    env_file:
+      - .env
     networks:
       - network
   wordpress:
