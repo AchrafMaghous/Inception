@@ -1,5 +1,5 @@
 #!/bin/sh
-apt-get update -y
+apt-get update && apt upgrade -y
 apt-get install curl php php-fpm php-mysql -y
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
