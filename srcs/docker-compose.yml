@@ -9,11 +9,11 @@ services:
       - "443:443"
     volumes:
       - ./wp_files:/var/www/html
-    depends_on:
-      - wordpress
     restart: on-failure
     networks:
       - network
+    depends_on:
+      - wordpress
   mariadb:
     image: mariadb
     container_name: inc_mariadb
@@ -33,8 +33,6 @@ services:
     build: ./requirements/wordpress
     ports:
       - "9000:9000"
-    depends_on:
-      - mariadb
     restart: on-failure
     env_file:
       - .env
@@ -42,6 +40,8 @@ services:
       - ./wp_files:/var/www/html
     networks:
       - network
+    depends_on:
+      - mariadb
 
 networks:
   network:
