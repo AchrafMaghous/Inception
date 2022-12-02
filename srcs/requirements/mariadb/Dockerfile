@@ -2,7 +2,6 @@ FROM debian:buster
 
 COPY ./config/conf.sql /tmp/conf.sql
 
-
 RUN apt-get update -y;\
 	apt-get install mariadb-server -y; service mysql start;\
 	chown -R mysql:mysql /var/lib/mysql;\
