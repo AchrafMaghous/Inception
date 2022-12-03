@@ -3,7 +3,7 @@ version: '3.9'
 services:
   mariadb:
     image: my_mariadb
-    container_name: _mariadb
+    container_name: my_mariadb
     build: ./requirements/mariadb
     ports:
       - "3306:3306"
@@ -14,7 +14,7 @@ services:
     restart: on-failure
   nginx:
     image: my_nginx
-    container_name: _nginx
+    container_name: my_nginx
     build: ./requirements/nginx
     ports: 
       - "443:443"
@@ -27,7 +27,7 @@ services:
       - wordpress
   wordpress:
     image: my_wordpress
-    container_name: _wordpress
+    container_name: my_wordpress
     build: ./requirements/wordpress
     ports:
       - "9000:9000"
