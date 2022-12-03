@@ -1,19 +1,6 @@
 version: '3.7'
 
 services:
-  nginx:
-    image: nginx
-    container_name: inc_nginx
-    build: ./requirements/nginx
-    ports: 
-      - "443:443"
-    volumes:
-      - ./wp_files:/var/www/html
-    restart: on-failure
-    networks:
-      - network
-    depends_on:
-      - wordpress
   mariadb:
     image: mariadb
     container_name: inc_mariadb
@@ -27,6 +14,19 @@ services:
       - .env
     networks:
       - network
+  nginx:
+    image: nginx
+    container_name: inc_nginx
+    build: ./requirements/nginx
+    ports: 
+      - "443:443"
+    volumes:
+      - ./wp_files:/var/www/html
+    restart: on-failure
+    networks:
+      - network
+    depends_on:
+      - wordpress
   wordpress:
     image: wordpress
     container_name: inc_wordpress
