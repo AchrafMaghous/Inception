@@ -2,39 +2,39 @@ version: '3.9'
 
 services:
   mariadb:
-    build: ./requirements/mariadb/
-    container_name: my_mariadb
     image: my_mariadb
+    container_name: my_mariadb
+    build: ./requirements/mariadb
     ports:
       - "3306:3306"
     volumes:
-      - ./wp_db:/var/lib/mysql
+      - wp_db:/var/lib/mysql
     networks:
       - network
     restart: on-failure
   nginx:
-    build: ./requirements/nginx/
-    container_name: my_nginx
     image: my_nginx
+    container_name: my_nginx
+    build: ./requirements/nginx
     ports: 
       - "443:443"
     volumes:
-      - ./wp_files:/var/www/html
+      - wp_files:/var/www/html
     restart: on-failure
     networks:
       - network
     depends_on:
       - wordpress
   wordpress:
-    build: ./requirements/wordpress/
-    container_name: my_wordpress
     image: my_wordpress
+    container_name: my_wordpress
+    build: ./requirements/wordpress
     ports:
       - "9000:9000"
     env_file:
       - .env
     volumes:
-      - ./wp_files:/var/www/html
+      - wp_files:/var/www/html
     restart: on-failure
     networks:
       - network
