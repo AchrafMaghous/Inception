@@ -9,11 +9,9 @@ services:
       - "3306:3306"
     volumes:
       - ./wp_db:/var/lib/mysql
-    restart: on-failure
-    env_file:
-      - .env
     networks:
       - network
+    restart: on-failure
   nginx:
     image: nginx
     container_name: inc_nginx
@@ -33,11 +31,11 @@ services:
     build: ./requirements/wordpress
     ports:
       - "9000:9000"
-    restart: on-failure
     env_file:
       - .env
     volumes:
       - ./wp_files:/var/www/html
+    restart: on-failure
     networks:
       - network
     depends_on:
