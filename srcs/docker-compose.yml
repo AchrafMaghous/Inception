@@ -8,7 +8,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      -/wp_db:/var/lib/mysql
+      -./wp_db:/var/lib/mysql
     networks:
       - network
     restart: on-failure
@@ -19,7 +19,7 @@ services:
     ports: 
       - "443:443"
     volumes:
-      - /wp_files:/var/www/html
+      -./wp_files:/var/www/html
     networks:
     restart: on-failure
       - network
@@ -34,7 +34,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /wp_files:/var/www/html
+      -./wp_files:/var/www/html
     restart: on-failure
     networks:
       - network
