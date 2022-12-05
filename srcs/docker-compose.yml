@@ -26,7 +26,7 @@ services:
     depends_on:
       - wordpress
   wordpress:
-    image: my_wordpress:mine
+    image: wordpress:mine
     container_name: my_wordpress
     build: ./requirements/wordpress
     ports:
