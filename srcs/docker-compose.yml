@@ -40,7 +40,7 @@ services:
       - network
     depends_on:
       - mariadb
-    redis:
+  redis:
       image: wp_redis:mine
       container_name: redis
       build: ./bonus/redis
