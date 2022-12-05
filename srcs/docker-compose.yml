@@ -48,6 +48,8 @@ services:
         - "6379:6379"
       network:
         -network
+      depends_on:
+        - wordpress
       restart: on-failure
 
 networks:
