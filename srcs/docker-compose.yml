@@ -41,16 +41,16 @@ services:
     depends_on:
       - mariadb
   redis:
-      image: wp_redis:mine
-      container_name: redis
-      build: ./bonus/redis
-      ports:
-        - "6379:6379"
-      network:
-        - network
-      depends_on:
-        - wordpress
-      restart: on-failure
+    image: wp_redis:mine
+    container_name: redis
+    build: ./bonus/redis
+    ports:
+      - "6379:6379"
+    network:
+      - network
+    depends_on:
+      - wordpress
+    restart: on-failure
 
 networks:
   network:
