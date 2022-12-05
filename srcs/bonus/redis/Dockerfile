@@ -1,7 +1,6 @@
 FROM debian:buster
 
-COPY ./config/setup.sh /tmp/setup.sh
+RUN apt-get update && apt-get install -y redis-server\
+	sed -i "s/127.0.0.1/0.0.0.0/" /etc/redis/redis.conf;
 
-RUN chmod +x /tmp/setup.sh
-
-ENTRYPOINT [ "/tmp/setup.sh" ]
+ENTRYPOINT [ "./redis-server --protected-mode no" ]
