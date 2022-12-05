@@ -8,9 +8,11 @@ wp core download --path="/var/www/html"  --allow-root
 chown -R www-data:www-data /var/www/html
 wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$MYSQL_host --path=/var/www/html --allow-root --skip-check
 wp core install --url=$url --title=$title --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email --allow-root --path=/var/www/html
-wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/
-wp config set WP_REDIS_PATH --raw "__DIR__ . '/../redis.sock'" --allow-root
-wp config set WP_REDIS_SCHEME "unix" --allow-root
+wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/ --extra-php <<PHP
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_DISABLED', false);
+PHP
 service php7.3-fpm start
 wp plugin install redis-cache --path=/var/www/html --allow-root
 wp plugin activate redis-cache --path=/var/www/html --allow-root
