@@ -10,8 +10,5 @@ wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_P
 wp core install --url=$url --title=$title --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email --allow-root --path=/var/www/html
 wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/
 service php7.3-fpm start
-wp plugin install redis-cache --path=/var/www/html --allow-root
-wp plugin activate redis-cache --path=/var/www/html --allow-root
-wp redis enable --path=/var/www/html --allow-root
 service php7.3-fpm stop
 php-fpm7.3 -F
