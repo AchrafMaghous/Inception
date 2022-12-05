@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN	apt-get update && apt upgrade -y \
-	&& apt-get install -y curl php-fpm php-mysql
+	&& apt-get install -y curl php-fpm php-mysql sendmail
 
 COPY ./config/setup.sh /tmp/setup.sh
 
