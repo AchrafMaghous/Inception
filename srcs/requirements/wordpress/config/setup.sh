@@ -12,7 +12,7 @@ wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role
 echo "define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);
 define('WP_REDIS_DISABLED', false);
-$redis_server = array(
+\$redis_server = array(
      'host'     => '127.0.0.1',
      'port'     => 6379,
      'auth'     => '12345',
