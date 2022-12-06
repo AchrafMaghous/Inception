@@ -11,16 +11,16 @@ wp core install --url=$url --title=$title --admin_user=$admin_user --admin_passw
 wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/
 echo "define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);
-define('WP_REDIS_DISABLED', false);
-\$redis_server = array(
+define('WP_REDIS_DISABLED', false);" >> /var/www/html/wp-config.php
+service php7.3-fpm start
+wp plugin install redis-cache --path=/var/www/html --allow-root
+wp plugin activate redis-cache --path=/var/www/html --allow-root
+echo "\$redis_server = array(
      'host'     => '127.0.0.1',
      'port'     => 6379,
      'auth'     => '12345',
      'database' => 0,
  );" >> /var/www/html/wp-config.php
-service php7.3-fpm start
-wp plugin install redis-cache --path=/var/www/html --allow-root
-wp plugin activate redis-cache --path=/var/www/html --allow-root
 wp redis enable --path=/var/www/html --allow-root
 service php7.3-fpm stop
 php-fpm7.3 -F
