@@ -5,4 +5,4 @@ RUN apt-get update && apt-get -y install vsftpd\
 
 COPY ./config/vsftpd.conf /etc/vsftpd.conf
 
-ENTRYPOINT [ "/etc/init.d/vsftpd" , "restart"]
+ENTRYPOINT [ "/etc/init.d/vsftpd" , "start"]
