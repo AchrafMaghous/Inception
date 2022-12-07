@@ -9,4 +9,4 @@ RUN service vsftpd start \
 	&& echo "$USER" | tee -a /etc/vsftpd.userlist\
 	&& service vsftpd restart
 
-ENTRYPOINT [ "/etc/init.d/vsftpd" , "start"]
+ENTRYPOINT [ "/usr/sbin/vsftpd"]
