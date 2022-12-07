@@ -56,7 +56,7 @@ services:
     volumes:
       - wp_files:/home/achraf/ftp/
     networks:
-      - inceptionNetwork
+      - network
     ports:
       - "20:20"
       - "21:21"
