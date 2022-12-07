@@ -52,7 +52,7 @@ services:
   ftp:
     image: ftp:mine
     container_name: ftp
-    build: ./requirements/bonus/ftp/
+    build: ./bonus/ftp
     volumes:
       - wp_files:/home/achraf/ftp/
     networks:
