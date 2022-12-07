@@ -53,8 +53,11 @@ services:
     image: ftp:mine
     container_name: ftp
     build: ./bonus/ftp
+    volumes:
+      - wp_files:/var/www/html
     ports:
       - "21:21"
+      - "20:20"
     depends_on:
       - wordpress
     restart: on-failure
