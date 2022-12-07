@@ -49,6 +49,15 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+  ftp:
+    image: ftp:mine
+    container_name: ftp
+    build: ./bonus/ftp
+    ports:
+      - "21:21"
+    depends_on:
+      -wordpress
+    restart: on-failure
 
 networks:
   network:
