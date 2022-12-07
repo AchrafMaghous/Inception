@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y install vsftpd \
 COPY ./config/vsftpd.conf /etc/vsftpd.conf
 
 RUN service vsftpd start \
-	&& adduser $FTPUSER \
+	&& adduser --gecos "" $FTPUSER \
 	&& mkdir /home/$FTPUSER/ftp\
 	&& chown nobody:nogroup /home/$FTPUSER/ftp && chmod a-w /home/$FTPUSER/ftp \
 	&& mkdir /home/$FTPUSER/ftp/upload \
