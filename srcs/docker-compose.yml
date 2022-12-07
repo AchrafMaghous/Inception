@@ -52,14 +52,18 @@ services:
   ftp:
     image: ftp:mine
     container_name: ftp
-    build: ./bonus/ftp
+    build: ./requirements/bonus/ftp/
     volumes:
-      - wp_files:/var/www/html
+      - wp_files:/home/achraf/ftp/
+    networks:
+      - inceptionNetwork
     ports:
-      - "21:21"
       - "20:20"
+      - "21:21"
     depends_on:
       - wordpress
+    env_file:
+      - .env
     restart: on-failure
 
 networks:
