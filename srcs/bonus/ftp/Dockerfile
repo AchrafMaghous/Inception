@@ -6,13 +6,13 @@ RUN apt-get update && apt-get -y install vsftpd \
 COPY ./config/vsftpd.conf /etc/vsftpd.conf
 
 RUN service vsftpd start \
-	&& adduser $USER \
-	&& mkdir /home/$USER/ftp\
-	&& chown nobody:nogroup /home/$USER/ftp && chmod a-w /home/$USER/ftp \
-	&& mkdir /home/$USER/ftp/upload \
-	&& chown $USER:$USER /home/$USER/ftp/upload
+	&& adduser $FTPUSER \
+	&& mkdir /home/$FTPUSER/ftp\
+	&& chown nobody:nogroup /home/$FTPUSER/ftp && chmod a-w /home/$FTPUSER/ftp \
+	&& mkdir /home/$FTPUSER/ftp/upload \
+	&& chown $FTPUSER:$FTPUSER /home/$FTPUSER/ftp/upload
 
-RUN echo "$USER" | tee -a /etc/vsftpd.userlist \
+RUN echo "$FTPUSER" | tee -a /etc/vsftpd.userlist \
 	&& service vsftpd restart
 
 ENTRYPOINT [ "/usr/sbin/vsftpd"]
