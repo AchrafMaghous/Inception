@@ -72,7 +72,7 @@ services:
     networks:
       - network
     ports:
-      - "80:80"
+      - "81:81"
     restart: on-failure
 
 networks:
