@@ -7,7 +7,7 @@ sed -i -e 's/listen =.*/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 wp core download --path="/var/www/html"  --allow-root
 chown -R www-data:www-data /var/www/html
 wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$MYSQL_host --path=/var/www/html --allow-root --skip-check
-wp core install --url=$url --title=$title --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email --allow-root --path=/var/www/html
+wp core install --url=$DOMAIN_NAME --title=$TITLE --admin_user=$WP_ADMIN --admin_password=$WP_PASS --admin_email=$WP_EMAIL --allow-root --path=/var/www/html
 wp user create achraf muteallfocus7@gmail.com --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path=/var/www/html/
 echo "define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);
