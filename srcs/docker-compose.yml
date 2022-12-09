@@ -65,6 +65,15 @@ services:
     env_file:
       - .env
     restart: on-failure
+  staticWebsite:
+    image: staticWebsite:mine
+    container_name: staticWebsite
+    build: ./bonus/static-web
+    networks:
+      - network
+    ports:
+      - "80:80"
+    restart: on-failure
 
 networks:
   network:
