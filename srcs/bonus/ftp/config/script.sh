@@ -17,5 +17,5 @@ echo "userlist_enable=YES" >> /etc/vsftpd.conf;
 echo "userlist_file=/etc/vsftpd.userlist" >> /etc/vsftpd.conf;
 echo "userlist_deny=NO" >> /etc/vsftpd.conf;
 echo "secure_chroot_dir=/home/$FTPUSER/ftp" >> /etc/vsftpd.conf;
-service vsftpd restart
+service vsftpd stop
 /usr/sbin/vsftpd
