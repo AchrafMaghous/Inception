@@ -65,9 +65,9 @@ services:
     env_file:
       - .env
     restart: on-failure
-  staticWebsite:
-    image: staticWebsite:mine
-    container_name: staticWebsite
+  staticsite:
+    image: staticsite:mine
+    container_name: staticsite
     build: ./bonus/static-web
     networks:
       - network
