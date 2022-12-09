@@ -2,6 +2,9 @@
 
 apt-get update && apt-get -y install vsftpd
 service vsftpd start
+adduser --disabled-password --gecos "" $FTPUSER;
+mkdir -p /home/$FTPUSER/ftp/;
+chown -R "$FTPUSER:$FTPUSER" /home/$FTPUSER/;
 echo "$FTPUSER" >> /etc/vsftpd.userlist
 echo "local_enable=YES" >> /etc/vsftpd.conf;
 echo "write_enable=YES" >> /etc/vsftpd.conf;
