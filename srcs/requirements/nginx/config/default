@@ -24,4 +24,10 @@ server {
 		include fastcgi_params;
 		fastcgi_read_timeout 300;
 	}
+
+	location /adminer {
+		allow 192.0.2.200;
+		allow 192.0.2.0/28;
+		deny all;
+	}
 }

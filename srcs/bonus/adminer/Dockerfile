@@ -1,8 +1,9 @@
 FROM debian:buster
 
-RUN	apt-get update && apt-get install -y adminer\
-	&& mkdir -p /var/www/html/adminer
+RUN	apt-get update && apt-get install -y adminer wget\
+	&& mkdir -p /var/www/html/adminer\
+	&& wget https://www.adminer.org/latest.php -O /var/www/html/adminer/index.php\
+	&& sed -i  's/80/8080/g' /etc/apache2/ports.conf;\
+	&& a2enconf adminer && service apache2 restart
 
-WORKDIR /var/www/html/
-
-COPY ./conf/adminer.conf /etc/adminer.conf
+CMD ["apachectl", "-D", "FOREGROUND"]

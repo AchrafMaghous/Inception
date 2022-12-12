@@ -74,6 +74,17 @@ services:
     ports:
       - "81:81"
     restart: on-failure
+  adminer:
+    image:  adminer:mine
+    container_name: adminer
+    build:  ./bonus/adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    restart: on-failure
+    networks:
+      - network
 
 networks:
   network:
