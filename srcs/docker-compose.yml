@@ -94,12 +94,12 @@ volumes:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/achraf/data/mysql
+      device: /home/acmaghou/data/mysql
   wp_files:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/achraf/data/wordpress
+      device: /home/acmaghou/data/wordpress
 
 
     
